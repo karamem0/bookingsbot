@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karamem0.BookingsBot", "Karamem0.BookingsBot\Karamem0.BookingsBot.csproj", "{0AD15E56-A175-4FF1-B712-F021AC0CBD7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karamem0.BookingsBot.Tests", "Karamem0.BookingsBot.Tests\Karamem0.BookingsBot.Tests.csproj", "{819C89CE-BA8E-45C9-BF52-B9E837A432DA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AD15E56-A175-4FF1-B712-F021AC0CBD7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AD15E56-A175-4FF1-B712-F021AC0CBD7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AD15E56-A175-4FF1-B712-F021AC0CBD7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AD15E56-A175-4FF1-B712-F021AC0CBD7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{819C89CE-BA8E-45C9-BF52-B9E837A432DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{819C89CE-BA8E-45C9-BF52-B9E837A432DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{819C89CE-BA8E-45C9-BF52-B9E837A432DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{819C89CE-BA8E-45C9-BF52-B9E837A432DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -2,6 +2,17 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "clean",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "clean",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
       "label": "build",
       "command": "dotnet",
       "type": "shell",
@@ -10,10 +21,7 @@
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
-      "group": "build",
-      "presentation": {
-        "reveal": "silent"
-      },
+      "dependsOn": "clean",
       "problemMatcher": "$msCompile"
     }
   ]
