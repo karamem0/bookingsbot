@@ -3,8 +3,8 @@
   "tasks": [
     {
       "label": "clean",
-      "command": "dotnet",
       "type": "shell",
+      "command": "dotnet",
       "args": [
         "clean",
         "/property:GenerateFullPaths=true",
@@ -14,8 +14,12 @@
     },
     {
       "label": "build",
-      "command": "dotnet",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
       "type": "shell",
+      "command": "dotnet",
       "args": [
         "build",
         "/property:GenerateFullPaths=true",

@@ -5,7 +5,7 @@ on:
       - develop
 
 env:
-  BUILD_VERSION: '2.0.0'
+  BUILD_VERSION: '2.1.0'
 
 jobs:
   select-environment:
@@ -15,12 +15,7 @@ jobs:
         id: select-environment
         shell: pwsh
         run: |
-          if ("${{github.ref}}" -eq "refs/heads/main") {
-            Write-Output "env-name=production" >> $env:GITHUB_OUTPUT
-          }
-          if ("${{github.ref}}" -eq "refs/heads/develop") {
-            Write-Output "env-name=development" >> $env:GITHUB_OUTPUT
-          }
+          Write-Output "env-name=$(@{'main'='production';'develop'='development'}['${{github.ref_name}}'])" >> $env:GITHUB_OUTPUT
     outputs:
       env-name: ${{steps.select-environment.outputs.env-name}}
   build-bot:
@@ -38,10 +33,11 @@ jobs:
       - name: Rewrite index.html
         shell: pwsh
         run: |
-          $content = Get-Content -Path wwwroot/index.html
+          $content = Get-Content -Path ${{env.FILE_PATH}}
           $content = $content -replace "{{APP_GITHUB_PAGE}}", "${{secrets.APP_GITHUB_PAGE}}"
-          Out-File -FilePath wwwroot/index.html -InputObject $content -Encoding UTF8
-        working-directory: source/Karamem0.BookingsBot
+          Out-File -FilePath ${{env.FILE_PATH}} -InputObject $content -Encoding UTF8
+        env:
+          FILE_PATH: source/Karamem0.BookingsBot/wwwroot/index.html
       - name: Restore source
         run: dotnet restore
         working-directory: source
@@ -49,23 +45,25 @@ jobs:
         shell: pwsh
         run: |
           dotnet test `
+            Karamem0.BookingsBot.Tests/Karamem0.BookingsBot.Tests.csproj `
             -p:AltCover=true `
             -- NUnit.TestOutputXml=${{github.workspace}}/source/test
-        working-directory: source/Karamem0.BookingsBot.Tests
+        working-directory: source
       - name: Build source
         shell: pwsh
         run: |
           dotnet publish `
+            Karamem0.BookingsBot/Karamem0.BookingsBot.csproj `
             -c Release `
-            -p:PublishDir=../../build `
+            -p:PublishDir=${{github.workspace}}/source/build `
             -p:Version=${{env.BUILD_VERSION}}.${{github.run_number}} `
             -p:FileVersion=${{env.BUILD_VERSION}}.${{github.run_number}}
-        working-directory: source/Karamem0.BookingsBot
+        working-directory: source
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: bookings-bot
-          path: build
+          path: source/build
       - name: Upload test results
         uses: enricomi/publish-unit-test-result-action/linux@v2
         if: always()

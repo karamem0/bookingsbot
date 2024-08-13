@@ -41,6 +41,7 @@ if (app.Environment.IsDevelopment())
 _ = app.UseDefaultFiles();
 _ = app.UseStaticFiles();
 _ = app.UseWebSockets();
+_ = app.UseNamedPipes($"{Environment.GetEnvironmentVariable("APPSETTING_WEBSITE_SITE_NAME")}.directline");
 _ = app.UseRouting();
 _ = app.UseAuthorization();
 _ = app.MapControllers();
