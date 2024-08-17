@@ -3,16 +3,9 @@
   "configurations": [
     {
       "name": "Launch Bot",
-      "type": "coreclr",
+      "type": "dotnet",
       "request": "launch",
-      "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Karamem0.BookingsBot/bin/Debug/net8.0/Karamem0.BookingsBot.dll",
-      "args": [],
-      "cwd": "${workspaceFolder}/Karamem0.BookingsBot",
-      "stopAtEntry": false,
-      "env": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      "projectPath": "${workspaceFolder}/Karamem0.BookingsBot/Karamem0.BookingsBot.csproj"
     }
   ]
 }

@@ -1,0 +1,91 @@
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+    secrets:
+      AZURE_APP_SERVICE_NAME:
+        required: true
+      AZURE_CREDENTIALS:
+        required: true
+      CODECOV_TOKEN:
+        required: true
+
+jobs:
+  build-source:
+    environment: ${{inputs.environment}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repos
+        uses: actions/checkout@v4
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.x
+      - name: Rewrite index.html
+        shell: pwsh
+        run: |
+          $content = Get-Content -Path ${{env.FILE_PATH}}
+          $content = $content -replace "{{APP_GITHUB_PAGE}}", "${{github.server_url}}/${{github.repository}}"
+          Out-File -FilePath ${{env.FILE_PATH}} -InputObject $content -Encoding UTF8
+        env:
+          FILE_PATH: source/Karamem0.BookingsBot/wwwroot/index.html
+      - name: Restore source
+        run: dotnet restore
+        working-directory: source
+      - name: Test source
+        shell: pwsh
+        run: |
+          dotnet test `
+            Karamem0.BookingsBot.Tests/Karamem0.BookingsBot.Tests.csproj `
+            -p:AltCover=true `
+            -- NUnit.TestOutputXml=${{github.workspace}}/source/test
+        working-directory: source
+      - name: Build source
+        shell: pwsh
+        run: |
+          dotnet publish `
+            Karamem0.BookingsBot/Karamem0.BookingsBot.csproj `
+            -c Release `
+            -p:PublishDir=${{github.workspace}}/source/build `
+            -p:Version=${{vars.BUILD_VERSION}}.${{github.run_number}} `
+            -p:FileVersion=${{vars.BUILD_VERSION}}.${{github.run_number}}
+        working-directory: source
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bookings-bot
+          path: source/build
+      - name: Upload test results
+        uses: enricomi/publish-unit-test-result-action/linux@v2
+        if: always()
+        with:
+          files: |
+            source/test/**/*.xml
+          check_name: test-results
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v4
+        if: always()
+        with:
+          fail_ci_if_error: true
+          token: ${{secrets.CODECOV_TOKEN}}
+  deploy-source:
+    needs: build-source
+    environment: ${{inputs.environment}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: bookings-bot
+          path: artifact
+      - name: Connect to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: Deploy artifacts
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{secrets.AZURE_APP_SERVICE_NAME}}
+          package: artifact
