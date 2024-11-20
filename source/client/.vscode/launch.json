@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "configurations": [
+    {
+      "name": "Launch Web",
+      "type": "chrome",
+      "request": "launch",
+      "url": "https://localhost:5173",
+      "webRoot": "${workspaceFolder}",
+      "runtimeArgs": [
+        "-incognito"
+      ],
+      "preLaunchTask": "react-start",
+      "postDebugTask": "react-terminate"
+    }
+  ]
+}
