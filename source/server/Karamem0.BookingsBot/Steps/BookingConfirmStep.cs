@@ -26,7 +26,7 @@ using Graph = Microsoft.Graph.Models;
 
 namespace Karamem0.BookingsBot.Steps;
 
-public class BookingConfirmStep(UserState userState, IGraphService graphService) : ConfirmStep
+public class BookingConfirmStep(UserState userState, IGraphService graphService) : ConfirmPromptStep
 {
 
     private static readonly string confirmCardName = "Karamem0.BookingsBot.Resources.Cards.BookingConfirmCard.json";

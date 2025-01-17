@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 
 namespace Karamem0.BookingsBot.Steps;
 
-public partial class BookingCustomerEmailStep(UserState userState) : TextStep
+public partial class BookingCustomerEmailStep(UserState userState) : TextPromptStep
 {
 
     [GeneratedRegex(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")]

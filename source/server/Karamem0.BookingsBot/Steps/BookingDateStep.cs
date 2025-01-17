@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 
 namespace Karamem0.BookingsBot.Steps;
 
-public class BookingDateStep : ChoiceStep
+public class BookingDateStep : ChoicePromptStep
 {
 
     public BookingDateStep()

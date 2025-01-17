@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Karamem0.BookingsBot.Steps.Abstraction;
 
-public abstract class ChoiceStep : Step
+public abstract class ChoicePromptStep : Step
 {
 
     public override Dialog Dialog => new ChoicePrompt(this.DialogId, this.OnValidateAsync);

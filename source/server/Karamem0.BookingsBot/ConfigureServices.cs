@@ -20,7 +20,6 @@ using Microsoft.Agents.Hosting.AspNetCore;
 using Microsoft.Agents.Memory.Blobs;
 using Microsoft.Agents.Protocols.Connector;
 using Microsoft.Agents.Protocols.Primitives;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -74,7 +73,7 @@ public static class ConfigureServices
         ));
         _ = services.AddSingleton<ConversationState>();
         _ = services.AddSingleton<UserState>();
-        _ = services.AddTransient<IBot, DialogBot<BookingDialog>>();
+        _ = services.AddTransient<IBot, DialogBot<MainDialog>>();
         return services;
     }
 
@@ -123,6 +122,7 @@ public static class ConfigureServices
 
     public static IServiceCollection AddDialogs(this IServiceCollection services)
     {
+        _ = services.AddScoped<MainDialog>();
         _ = services.AddScoped<BookingDialog>();
         return services;
     }
@@ -165,6 +165,12 @@ public static class ConfigureServices
 
     public static IServiceCollection AddSteps(this IServiceCollection services)
     {
+        // Main Steps
+        _ = services.AddScoped<MainStep>();
+        _ = services.AddScoped(provider => new MainStepCollection(
+            provider.GetRequiredService<MainStep>()
+        ));
+        // Booking Steps
         _ = services.AddScoped<BookingBusinessStep>();
         _ = services.AddScoped<BookingServiceStep>();
         _ = services.AddScoped<BookingDateStep>();

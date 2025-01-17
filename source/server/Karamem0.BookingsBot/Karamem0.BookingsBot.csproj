@@ -21,8 +21,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AdaptiveCards.Templating" Version="2.0.3" />
-    <PackageReference Include="Azure.Identity" Version="1.12.0" />
+    <PackageReference Include="AdaptiveCards.Templating" Version="2.0.4" />
+    <PackageReference Include="Azure.Identity" Version="1.13.2" />
     <PackageReference Include="Microsoft.Agents.Authentication" Version="0.1.26" />
     <PackageReference Include="Microsoft.Agents.Authentication.Msal" Version="0.1.26" />
     <PackageReference Include="Microsoft.Agents.BotBuilder" Version="0.1.26" />
@@ -30,10 +30,10 @@
     <PackageReference Include="Microsoft.Agents.Hosting.AspNetCore" Version="0.1.26" />
     <PackageReference Include="Microsoft.Agents.Memory.Blobs" Version="0.1.26" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.AzureAppServices" Version="8.0.8" />
-    <PackageReference Include="Microsoft.Graph" Version="5.56.0" />
-    <PackageReference Include="Microsoft.Identity.Web" Version="3.4.0" />
-    <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraph" Version="3.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.AzureAppServices" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Graph" Version="5.68.0" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="3.5.0" />
+    <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraph" Version="3.5.0" />
   </ItemGroup>
 
   <ItemGroup>

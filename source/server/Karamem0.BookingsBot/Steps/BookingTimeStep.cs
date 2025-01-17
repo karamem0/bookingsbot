@@ -24,7 +24,7 @@ using System.Threading.Tasks;
 
 namespace Karamem0.BookingsBot.Steps;
 
-public class BookingTimeStep(UserState userState) : ChoiceStep
+public class BookingTimeStep(UserState userState) : ChoicePromptStep
 {
 
     private readonly UserState userState = userState;

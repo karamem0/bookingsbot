@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace Karamem0.BookingsBot.Steps;
 
-public class BookingCustomerNameStep(UserState userState) : TextStep
+public class BookingCustomerNameStep(UserState userState) : TextPromptStep
 {
 
     private readonly UserState userState = userState;

@@ -16,12 +16,12 @@ using System.Threading.Tasks;
 
 namespace Karamem0.BookingsBot.Steps.Abstraction;
 
-public abstract class TextStep : Step
+public abstract class DialogStep<T>(T dialog) : Step where T : Dialog
 {
 
-    public override Dialog Dialog => new TextPrompt(this.DialogId, this.OnValidateAsync);
+    public override Dialog Dialog => dialog;
 
-    public virtual Task<bool> OnValidateAsync(PromptValidatorContext<string> promptContext, CancellationToken cancellationToken = default)
+    public virtual Task<bool> OnValidateAsync(PromptValidatorContext<bool> promptContext, CancellationToken cancellationToken = default)
     {
         return Task.FromResult(true);
     }

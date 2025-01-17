@@ -24,7 +24,7 @@ using System.Threading.Tasks;
 
 namespace Karamem0.BookingsBot.Steps;
 
-public class BookingStaffMemberStep(UserState userState, IGraphService graphService) : ChoiceStep
+public class BookingStaffMemberStep(UserState userState, IGraphService graphService) : ChoicePromptStep
 {
 
     private readonly UserState userState = userState;
